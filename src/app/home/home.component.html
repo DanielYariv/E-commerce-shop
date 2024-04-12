@@ -1,14 +1,14 @@
 <!-- home.component.html -->
 <div class="home-container">
   <div class="hero-banner">
-    <h1>Welcome to Daniel E-commerce Store!</h1>
+    <h1>Welcome to Daniel's E-commerce Store!</h1>
     <p>Your reliable partner in fashion and technology.</p>
   </div>
 
   <div class="bestSeller-products">
     <h2>Best Sellers:</h2>
 
-    <p-dataView #dv [value]="bestSellers" [layout]="'list'">
+    <p-dataView #dv [value]="bestSellers" [layout]="'grid'">
       <ng-template pTemplate="header">
         <div class="flex justify-content-end">
           <p-dataViewLayoutOptions></p-dataViewLayoutOptions>
@@ -25,7 +25,7 @@
               [ngClass]="{ 'border-top-1 surface-border': !first }"
             >
               <img
-                class="w-9 sm:w-16rem xl:w-10rem shadow-2 block xl:block mx-auto border-round"
+                class="w-9 sm:w-16rem xl:w-10rem shadow-2 block xl:block border-round"
                 [src]="product.ImageURL"
                 [alt]="product.Name"
               />
@@ -54,7 +54,7 @@
                   class="flex sm:flex-column align-items-center sm:align-items-end gap-3 sm:gap-2"
                 >
                   <span class="text-2xl font-semibold">{{
-                    "$" + product.Price
+                    product.Price + "$"
                   }}</span>
                   <button
                     pButton
@@ -90,14 +90,14 @@
                 />
                 <div class="text-2xl font-bold">{{ product.Name }}</div>
                 <p-rating
-                  [ngModel]="product.starts"
+                  [ngModel]="product.stars"
                   [readonly]="true"
                   [cancel]="false"
                 ></p-rating>
               </div>
               <div class="flex align-items-center justify-content-between">
                 <span class="text-2xl font-semibold">{{
-                  "$" + product.Price
+                  product.Price + "$"
                 }}</span>
                 <button
                   pButton
