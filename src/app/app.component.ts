@@ -31,39 +31,39 @@ export class AppComponent {
         {
           label: 'Electronics',
           icon: 'pi pi-desktop',
-          routerLink: '/electronics',
+          routerLink: '/products/Electronics',
           items: [
             {
               label: 'Apple',
               icon: 'pi pi-apple',
-              routerLink: '/electronics/apple',
+              routerLink: '/products/Electronics/Apple',
             },
             {
-              label: 'Samsung',
+              label: 'Android',
               icon: 'pi pi-android',
-              routerLink: '/electronics/samsung',
+              routerLink: '/products/Electronics/Android',
             },
           ],
         },
         {
           label: 'Clothing',
           icon: 'pi pi-shopping-cart',
-          routerLink: '/clothing',
+          routerLink: '/products/Clothing',
           items: [
             {
               label: 'Men',
               icon: 'pi pi-user',
-              routerLink: '/electronics',
+              routerLink: '/products/Clothing/Men',
             },
             {
               label: 'Women',
               icon: 'pi pi-user',
-              routerLink: '/electronics',
+              routerLink: '/products/Clothing/Women',
             },
             {
               label: 'Kids',
               icon: 'pi pi-user',
-              routerLink: '/electronics',
+              routerLink: '/products/Clothing/Kids',
             },
           ],
         },
@@ -72,7 +72,7 @@ export class AppComponent {
     {
       label: 'Cart',
       icon: 'pi pi-shopping-cart',
-      routerLink: '/cart-component',
+      routerLink: '/cart',
     },
   ];
 }

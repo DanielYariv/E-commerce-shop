@@ -5,12 +5,12 @@
     <p>Your reliable partner in fashion and technology.</p>
   </div>
 
-  <div class="bestSeller-products">
-    <h2>Best Sellers:</h2>
-
+  <app-products [products]="bestSellers"></app-products>
+  <!-- <div class="bestSeller-products">
     <p-dataView #dv [value]="bestSellers" [layout]="'grid'">
       <ng-template pTemplate="header">
         <div class="flex justify-content-end">
+          <h2>Best Sellers:</h2>
           <p-dataViewLayoutOptions></p-dataViewLayoutOptions>
         </div>
       </ng-template>
@@ -110,5 +110,5 @@
         </div>
       </ng-template>
     </p-dataView>
-  </div>
+  </div> -->
 </div>
