@@ -1,10 +1,4 @@
-import {
-  Component,
-  Input,
-  OnInit,
-  ChangeDetectorRef,
-  OnDestroy,
-} from '@angular/core';
+import { Component, Input, OnInit, OnDestroy } from '@angular/core';
 
 import { ProductsService } from './../products.service';
 
@@ -48,8 +42,7 @@ export class ProductsComponent implements OnInit, OnDestroy {
   constructor(
     private productsService: ProductsService,
     private activatedRoute: ActivatedRoute,
-    private router: Router,
-    private cdr: ChangeDetectorRef // for detect the changes between different subCategories like electronics/apple electronics/android
+    private router: Router
   ) {}
 
   ngOnInit(): void {
@@ -60,7 +53,6 @@ export class ProductsComponent implements OnInit, OnDestroy {
           this.category = params.get('category');
           this.subCategory = params.get('subCategory');
           this.updateProductList();
-          this.cdr.detectChanges(); // trigger check detection manually
         }
         this.filteredProducts = this.products;
       }
