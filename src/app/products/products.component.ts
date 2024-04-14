@@ -9,10 +9,10 @@ import { ButtonModule } from 'primeng/button';
 import { DataViewModule } from 'primeng/dataview';
 import { RatingModule } from 'primeng/rating';
 import { TagModule } from 'primeng/tag';
+import { DialogModule } from 'primeng/dialog';
 
 import { NgbAlert } from '@ng-bootstrap/ng-bootstrap';
 
-import { ProductComponent } from '../product/product.component';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 
@@ -23,11 +23,11 @@ import { Subscription } from 'rxjs';
     CommonModule,
     ButtonModule,
     NgbAlert,
-    ProductComponent,
     DataViewModule,
     RatingModule,
     FormsModule,
     TagModule,
+    DialogModule,
   ],
   templateUrl: './products.component.html',
   styleUrl: './products.component.css',
@@ -39,6 +39,9 @@ export class ProductsComponent implements OnInit, OnDestroy {
   filteredProducts: any[] = [];
   routeSubscription: Subscription = new Subscription();
 
+  selectedProduct: any;
+  visible: boolean = false; // for the dialog that give more details about the product
+
   constructor(
     private productsService: ProductsService,
     private activatedRoute: ActivatedRoute,
@@ -49,7 +52,7 @@ export class ProductsComponent implements OnInit, OnDestroy {
     this.routeSubscription = this.activatedRoute.paramMap.subscribe(
       (params) => {
         if (this.router.url != '/home') {
-          //if the user choose home, skip the code below because the products need to include only the best sellers products, get it from the property bind in the home component
+          //if the user choose home, skip the code below because the products need to include only the best sellers products, get it from the  the home component
           this.category = params.get('category');
           this.subCategory = params.get('subCategory');
           this.updateProductList();
@@ -78,6 +81,12 @@ export class ProductsComponent implements OnInit, OnDestroy {
     this.filteredProducts = this.products.filter((product) =>
       product.Name.toLowerCase().includes(query)
     );
+  }
+
+  //show more details about specific product
+  showDialog(product: any) {
+    this.selectedProduct = product;
+    this.visible = true;
   }
 
   ngOnDestroy(): void {

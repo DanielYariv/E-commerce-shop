@@ -3,18 +3,16 @@
   <p-dataView #dv [value]="filteredProducts" [layout]="'grid'">
     <ng-template pTemplate="header">
       <div class="flex justify-content-end">
-        <input
-          type="text"
-          pInputText
-          (input)="onSearch($event)"
-          placeholder="Search..."
-        />
+        <input type="text" (input)="onSearch($event)" placeholder="Search..." />
         <p-dataViewLayoutOptions></p-dataViewLayoutOptions>
       </div>
     </ng-template>
-    <ng-template let-product pTemplate="list" let-products>
+    <ng-template pTemplate="list">
       <div class="grid grid-nogutter">
-        <div class="col-12" *ngFor="let product of products; let first = first">
+        <div
+          class="col-12"
+          *ngFor="let product of filteredProducts; let first = first"
+        >
           <div
             class="flex flex-column xl:flex-row xl:align-items-start p-4 gap-4"
             [ngClass]="{ 'border-top-1 surface-border': !first }"
@@ -23,6 +21,8 @@
               class="w-9 sm:w-16rem xl:w-10rem shadow-2 block xl:block border-round"
               [src]="product.ImageURL"
               [alt]="product.Name"
+              (click)="showDialog(product)"
+              style="cursor: pointer"
             />
             <div
               class="flex flex-column sm:flex-row justify-content-between align-items-right xl:align-items-start flex-1 gap-4"
@@ -60,13 +60,31 @@
             </div>
           </div>
         </div>
+        <p-dialog
+          *ngIf="selectedProduct"
+          [(visible)]="visible"
+          [modal]="true"
+          [style]="{ width: '35vw' }"
+          [draggable]="true"
+          [resizable]="true"
+          [dismissableMask]="true"
+        >
+          <h2>{{ selectedProduct.Name }}</h2>
+          <p>{{ selectedProduct.Description }}</p>
+          <img
+            [src]="selectedProduct.ImageURL"
+            alt="Product Image"
+            style="width: 100%; max-height: 300px; object-fit: contain"
+          />
+          <h3>Price: {{ selectedProduct.Price | currency }}</h3>
+        </p-dialog>
       </div>
     </ng-template>
-    <ng-template let-product pTemplate="grid" let-products>
+    <ng-template pTemplate="grid">
       <div class="grid grid-nogutter">
         <div
           class="col-12 sm:col-6 lg:col-12 xl:col-4 p-2"
-          *ngFor="let product of products"
+          *ngFor="let product of filteredProducts"
         >
           <div class="p-4 border-1 surface-border surface-card border-round">
             <div
@@ -82,6 +100,8 @@
                 class="w-9 shadow-2 border-round"
                 [src]="product.ImageURL"
                 [alt]="product.Name"
+                (click)="showDialog(product)"
+                style="cursor: pointer"
               />
               <div class="text-2xl font-bold">{{ product.Name }}</div>
               <p-rating
@@ -102,6 +122,25 @@
             </div>
           </div>
         </div>
+        <!-- //trigger when clicking on the img -->
+        <p-dialog
+          *ngIf="selectedProduct"
+          [(visible)]="visible"
+          [modal]="true"
+          [style]="{ width: '35vw' }"
+          [draggable]="true"
+          [resizable]="true"
+          [dismissableMask]="true"
+        >
+          <h2>{{ selectedProduct.Name }}</h2>
+          <p>{{ selectedProduct.Description }}</p>
+          <img
+            [src]="selectedProduct.ImageURL"
+            alt="Product Image"
+            style="width: 100%; max-height: 300px; object-fit: contain"
+          />
+          <h3>Price: {{ selectedProduct.Price | currency }}</h3>
+        </p-dialog>
       </div>
     </ng-template>
   </p-dataView>
