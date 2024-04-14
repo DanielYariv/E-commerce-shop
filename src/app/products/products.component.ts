@@ -1,6 +1,7 @@
 import { Component, Input, OnInit, OnDestroy } from '@angular/core';
 
 import { ProductsService } from './../products.service';
+import { CartService } from './../cart.service';
 
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
@@ -34,6 +35,7 @@ import { Subscription } from 'rxjs';
 })
 export class ProductsComponent implements OnInit, OnDestroy {
   @Input() products: any[] = [];
+
   category: string | null = null;
   subCategory: string | null = null;
   filteredProducts: any[] = [];
@@ -44,6 +46,7 @@ export class ProductsComponent implements OnInit, OnDestroy {
 
   constructor(
     private productsService: ProductsService,
+    private cartService: CartService,
     private activatedRoute: ActivatedRoute,
     private router: Router
   ) {}
@@ -87,6 +90,10 @@ export class ProductsComponent implements OnInit, OnDestroy {
   showDialog(product: any) {
     this.selectedProduct = product;
     this.visible = true;
+  }
+
+  addProductToCart(product: any) {
+    this.cartService.addProductToCart(product);
   }
 
   ngOnDestroy(): void {

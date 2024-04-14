@@ -10,7 +10,6 @@ import { PaginatorModule } from 'primeng/paginator';
 
 import { NgbAlert } from '@ng-bootstrap/ng-bootstrap';
 
-import { ProductComponent } from '../product/product.component';
 import { ProductsComponent } from '../products/products.component';
 import { ProductsService } from '../products.service';
 @Component({
@@ -20,7 +19,6 @@ import { ProductsService } from '../products.service';
     CommonModule,
     ButtonModule,
     NgbAlert,
-    ProductComponent,
     ProductsComponent,
     DataViewModule,
     RatingModule,

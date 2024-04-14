@@ -1,7 +1,9 @@
-import { Component } from '@angular/core';
+import { CartService } from './cart.service';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
 import { NgbAlert } from '@ng-bootstrap/ng-bootstrap';
 import { MenubarModule } from 'primeng/menubar';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-root',
@@ -16,7 +18,10 @@ import { MenubarModule } from 'primeng/menubar';
   templateUrl: './app.component.html',
   styleUrl: './app.component.css',
 })
-export class AppComponent {
+export class AppComponent implements OnInit, OnDestroy {
+  cartItemsCounter = 0;
+  cartCounterSubscription: Subscription = new Subscription();
+
   items = [
     {
       label: 'Home',
@@ -73,6 +78,35 @@ export class AppComponent {
       label: 'Cart',
       icon: 'pi pi-shopping-cart',
       routerLink: '/cart',
+      badge: '',
+      styleClass: 'badge-class',
     },
   ];
+
+  constructor(private cartService: CartService) {}
+  ngOnInit(): void {
+    this.cartCounterSubscription = this.cartService
+      .getProductsInCartCounter()
+      .subscribe((counter) => {
+        this.cartItemsCounter = counter;
+        this.updateCartIconBadge();
+      });
+  }
+
+  // TODO:change the badge style
+  updateCartIconBadge() {
+    const index = this.items.findIndex((item) => item.label === 'Cart');
+    if (index !== -1) {
+      const updatedItems: any = [...this.items]; // immutable update -  Angular didn't update the view because it didn't detects the change so i change the reference to the array by spread the old items into a new array and add the new item
+      updatedItems[index] = {
+        ...updatedItems[index],
+        badge: this.cartItemsCounter > 0 ? `(${this.cartItemsCounter})` : '',
+      };
+      this.items = updatedItems;
+    }
+  }
+
+  ngOnDestroy(): void {
+    this.cartCounterSubscription.unsubscribe();
+  }
 }
