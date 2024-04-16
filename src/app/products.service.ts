@@ -524,8 +524,6 @@ export class ProductsService {
     },
   ];
 
-  constructor() {}
-
   getProducts() {
     return this.products;
   }
@@ -543,7 +541,7 @@ export class ProductsService {
   getByCategoryAndSubCategory(category: string | null, subCategory: string) {
     return this.products.filter(
       (product) =>
-        product.Category === category && product.SubCategory === subCategory
+        product.Category === category && product?.SubCategory === subCategory
     );
   }
 }

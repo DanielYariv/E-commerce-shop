@@ -1,10 +1,8 @@
-import { Component, Input, OnInit, OnDestroy } from '@angular/core';
-
-import { ProductsService } from './../products.service';
-import { CartService } from './../cart.service';
-
+import { Component, Input, OnInit, OnDestroy, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { ActivatedRoute, Router } from '@angular/router';
+import { Subscription } from 'rxjs';
 
 import { ButtonModule } from 'primeng/button';
 import { DataViewModule } from 'primeng/dataview';
@@ -14,9 +12,9 @@ import { DialogModule } from 'primeng/dialog';
 
 import { NgbAlert } from '@ng-bootstrap/ng-bootstrap';
 
-import { ActivatedRoute, Router } from '@angular/router';
-import { Subscription } from 'rxjs';
-
+import { ProductsService } from './../products.service';
+import { CartService } from './../cart.service';
+import { Product } from '../interfaces/product.interface';
 @Component({
   selector: 'app-products',
   standalone: true,
@@ -36,20 +34,19 @@ import { Subscription } from 'rxjs';
 export class ProductsComponent implements OnInit, OnDestroy {
   @Input() products: any[] = [];
 
+  productsService = inject(ProductsService);
+  cartService = inject(CartService);
+  activatedRoute = inject(ActivatedRoute);
+  router = inject(Router);
+
+  // TODO:fix the null option
   category: string | null = null;
   subCategory: string | null = null;
-  filteredProducts: any[] = [];
+  filteredProducts!: Product[];
   routeSubscription: Subscription = new Subscription();
 
-  selectedProduct: any;
+  selectedProduct!: Product;
   visible: boolean = false; // for the dialog that give more details about the product
-
-  constructor(
-    private productsService: ProductsService,
-    private cartService: CartService,
-    private activatedRoute: ActivatedRoute,
-    private router: Router
-  ) {}
 
   ngOnInit(): void {
     this.routeSubscription = this.activatedRoute.paramMap.subscribe(
@@ -66,7 +63,7 @@ export class ProductsComponent implements OnInit, OnDestroy {
   }
 
   //render to screen the product list based on the subCategory, if null based on Category, if null show all products
-  updateProductList() {
+  updateProductList(): void {
     if (this.subCategory) {
       this.products = this.productsService.getByCategoryAndSubCategory(
         this.category,
@@ -79,20 +76,20 @@ export class ProductsComponent implements OnInit, OnDestroy {
     }
   }
 
-  onSearch(event: any) {
-    let query = event.target.value.toLowerCase();
+  onSearch(event: Event) {
+    let query = (event.target as HTMLInputElement).value.toLowerCase();
     this.filteredProducts = this.products.filter((product) =>
       product.Name.toLowerCase().includes(query)
     );
   }
 
   //show more details about specific product
-  showDialog(product: any) {
+  showDialog(product: Product) {
     this.selectedProduct = product;
     this.visible = true;
   }
 
-  addProductToCart(product: any) {
+  addProductToCart(product: Product) {
     this.cartService.addProductToCart(product);
   }
 

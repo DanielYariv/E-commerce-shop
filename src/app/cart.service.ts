@@ -1,11 +1,12 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
+import { Product } from './interfaces/product.interface';
 
 @Injectable({
   providedIn: 'root',
 })
 export class CartService {
-  private productsInCart: any[] = [];
+  private productsInCart!: Product[];
   private productsInCartCounter = new BehaviorSubject<number>(0);
   constructor() {}
 
@@ -13,12 +14,12 @@ export class CartService {
     return this.productsInCart;
   }
 
-  addProductToCart(product: object) {
+  addProductToCart(product: Product) {
     this.productsInCart.push(product);
     this.productsInCartCounter.next(this.productsInCart.length);
   }
 
-  deleteProductFromCart(product: object) {
+  deleteProductFromCart(product: Product) {
     const index = this.findIndex(product);
 
     if (index !== -1) {
@@ -27,7 +28,7 @@ export class CartService {
     }
   }
 
-  findIndex(product: any) {
+  findIndex(product: Product) {
     return this.productsInCart.findIndex(
       (p) => p.ProductID === product.ProductID
     );

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 
@@ -12,6 +12,7 @@ import { NgbAlert } from '@ng-bootstrap/ng-bootstrap';
 
 import { ProductsComponent } from '../products/products.component';
 import { ProductsService } from '../products.service';
+import { Product } from '../interfaces/product.interface';
 @Component({
   selector: 'app-home',
   standalone: true,
@@ -30,8 +31,8 @@ import { ProductsService } from '../products.service';
   styleUrl: './home.component.css',
 })
 export class HomeComponent implements OnInit {
-  bestSellers: any[] = [];
-  constructor(private productsService: ProductsService) {}
+  productsService = inject(ProductsService);
+  bestSellers!: Product[];
 
   ngOnInit(): void {
     this.bestSellers = this.productsService.getBestSellers();
