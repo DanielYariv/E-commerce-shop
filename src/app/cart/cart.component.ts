@@ -1,4 +1,5 @@
-import { Component, OnInit, inject, signal } from '@angular/core';
+import { Component, inject } from '@angular/core';
+import { CheckOutComponent } from '../check-out/check-out.component';
 import { Product } from '../interfaces/product.interface';
 import { CartService } from './../cart.service';
 import { CommonModule } from '@angular/common';
@@ -21,19 +22,27 @@ import { DialogModule } from 'primeng/dialog';
     FormsModule,
     TagModule,
     DialogModule,
+    CheckOutComponent,
   ],
   templateUrl: './cart.component.html',
   styleUrl: './cart.component.css',
 })
-export class CartComponent implements OnInit {
+export class CartComponent {
   cartService = inject(CartService);
   productsInCart = this.cartService.productsInCart;
-
-  ngOnInit(): void {
-    //his.productsInCart.set(this.cartService.setProductInCart());
-  }
+  isCheckOut: boolean = false;
+  visible: boolean = false;
+  totalPayment!: number;
 
   removeProduct(product: Product) {
     this.cartService.deleteProductFromCart(product);
+  }
+
+  CheckOut() {
+    this.isCheckOut = true;
+    this.visible = true;
+  }
+  onFormSubmitted(isSubmitted: boolean) {
+    this.visible = isSubmitted;
   }
 }

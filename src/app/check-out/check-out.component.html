@@ -1,0 +1,28 @@
+<h5>Total Payment: {{ totalAmount() + "$" }}</h5>
+<form [formGroup]="checkOutForm" (ngSubmit)="onSubmit()">
+  <div>
+    <label for="firstName">First Name:</label>
+    <input id="firstName" type="text" formControlName="firstName" />
+  </div>
+  <div>
+    <label for="lastName">Last Name:</label>
+    <input id="lastName" type="text" formControlName="lastName" />
+  </div>
+  <div>
+    <label for="email">Email:</label>
+    <input id="email" type="email" formControlName="email" />
+  </div>
+  <div>
+    <label for="creditCard">Credit Card:</label>
+    <input
+      id="creditCard"
+      type="number"
+      formControlName="creditCard"
+      placeholder="xxxxxxxxxxxxxxxx"
+    />
+  </div>
+  <button type="submit" [disabled]="!checkOutForm.valid">Submit</button>
+  <div *ngIf="purchaseComplete" class="thank-you">
+    Thanks for your purchase!
+  </div>
+</form>

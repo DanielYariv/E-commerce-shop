@@ -1,7 +1,14 @@
 <div>
   <p-dataView #dv [value]="productsInCart()" [layout]="'list'">
     <ng-template pTemplate="header">
-      <div class="flex justify-content-end">Total:3500$</div>
+      <button
+        pButton
+        icon="pi pi-credit-card"
+        class="md:align-self-end mb-2"
+        (click)="CheckOut()"
+      >
+        -check out
+      </button>
     </ng-template>
     <ng-template pTemplate="list">
       <div class="grid grid-nogutter">
@@ -52,6 +59,17 @@
             </div>
           </div>
         </div>
+        <p-dialog
+          *ngIf="isCheckOut"
+          [(visible)]="visible"
+          [modal]="true"
+          [style]="{ width: '35vw' }"
+          [draggable]="true"
+          [resizable]="true"
+          [dismissableMask]="true"
+        >
+          <app-check-out (formSubmitted)="onFormSubmitted($event)" />
+        </p-dialog>
       </div>
     </ng-template>
   </p-dataView>

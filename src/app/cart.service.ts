@@ -8,6 +8,9 @@ import { Product } from './interfaces/product.interface';
 export class CartService {
   productsInCart = signal<Product[]>([]);
   productsInCartCounter = computed(() => this.productsInCart().length); //Defines a reactive computed signal that updates its value to the length of `productsInCart` whenever `productsInCart` changes
+  totalPrice = computed(() =>
+    this.productsInCart().reduce((total, product) => total + product.Price, 0)
+  );
 
   addProductToCart(product: Product) {
     this.productsInCart.update((values) => {
@@ -45,5 +48,10 @@ export class CartService {
     return this.productsInCart().findIndex(
       (p) => p.ProductID === product.ProductID
     );
+  }
+
+  clearCartAfterPurchase() {
+    this.productsInCart.set([]);
+    localStorage.removeItem('productsInCart');
   }
 }
