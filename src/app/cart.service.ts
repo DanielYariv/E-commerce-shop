@@ -1,5 +1,4 @@
-import { Injectable, computed, effect, signal } from '@angular/core';
-import { BehaviorSubject } from 'rxjs';
+import { Injectable, computed, signal } from '@angular/core';
 import { Product } from './interfaces/product.interface';
 
 @Injectable({
@@ -7,24 +6,36 @@ import { Product } from './interfaces/product.interface';
 })
 export class CartService {
   productsInCart = signal<Product[]>([]);
-  productsInCartCounter = computed(() => this.productsInCart().length); //Defines a reactive computed signal that updates its value to the length of `productsInCart` whenever `productsInCart` changes
+  productsInCartCounter = computed(() =>
+    this.productsInCart().reduce(
+      (total, product) => total + (product.quantity || 0),
+      0
+    )
+  ); //Defines a reactive computed signal that updates its value to the length of `productsInCart` whenever `productsInCart` changes
   totalPrice = computed(() => {
     const total = this.productsInCart().reduce(
-      (total, product) => total + product.Price,
+      (total, product) => total + product.Price * (product.quantity || 1),
       0
     );
+    console.log(total);
     return Math.floor(total * 100) / 100; // round the total price to two digit max after point
   });
 
   addProductToCart(product: Product) {
     this.productsInCart.update((values) => {
-      return [...values, product];
+      const existingProductIndex = values.findIndex(
+        (p) => p.ProductID === product.ProductID
+      );
+      if (existingProductIndex !== -1) {
+        values[existingProductIndex].quantity =
+          (values[existingProductIndex].quantity || 0) + 1;
+      } else {
+        const newProduct = { ...product, quantity: 1 };
+        values.push(newProduct);
+      }
+      localStorage.setItem('productsInCart', JSON.stringify(values));
+      return [...values];
     });
-
-    localStorage.setItem(
-      'productsInCart',
-      JSON.stringify(this.productsInCart())
-    );
   }
 
   setProductInCart() {

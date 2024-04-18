@@ -75,12 +75,8 @@
           <img
             [src]="selectedProduct.ImageURL"
             alt="Product Image"
-            style="
-              width: 100%;
-              max-height: 300px;
-              object-fit: contain;
-              min-height: 315.38px;
-            "
+            loading="lazy"
+            style="width: 100%; max-height: 300px; object-fit: contain"
           />
           <h3>Price: {{ selectedProduct.Price | currency }}</h3>
         </p-dialog>

@@ -7,4 +7,5 @@ export interface Product {
   SubCategory: string;
   ImageURL: string;
   stars: number;
+  quantity?: number;
 }
