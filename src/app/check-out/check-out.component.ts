@@ -29,10 +29,12 @@ export class CheckOutComponent implements OnInit {
   ngOnInit(): void {
     // Initialize the form structure with form controls and validation rules
     this.checkOutForm = this.formBuilder.group({
-      firstName: ['', Validators.required],
-      lastName: ['', Validators.required],
-      email: ['', [Validators.required, Validators.email]],
-      creditCard: ['', [Validators.required, Validators.pattern(/^\d{16}$/)]], //16 numbers pattern for the creditCard
+      checkOutData: this.formBuilder.group({
+        firstName: ['', Validators.required],
+        lastName: ['', Validators.required],
+        email: ['', [Validators.required, Validators.email]],
+        creditCard: ['', [Validators.required, Validators.pattern(/^\d{16}$/)]], //16 numbers pattern for the creditCard
+      }),
     });
   }
 

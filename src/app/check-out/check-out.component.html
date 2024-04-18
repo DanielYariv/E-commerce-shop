@@ -1,26 +1,41 @@
-<h5>Total Payment: {{ totalAmount() + "$" }}</h5>
+<h5 class="total-payment">Total Payment: {{ totalAmount() + "$" }}</h5>
 <form [formGroup]="checkOutForm" (ngSubmit)="onSubmit()">
-  <div>
-    <label for="firstName">First Name:</label>
-    <input id="firstName" type="text" formControlName="firstName" />
+  <div formGroupName="checkOutData">
+    <div>
+      <label for="firstName">First Name:</label>
+      <input id="firstName" type="text" formControlName="firstName" />
+      @if(!checkOutForm.get('checkOutData.firstName')?.valid &&
+      checkOutForm.get('checkOutData.firstName')?.touched) {
+      <span class="help-block">first name is required!</span>
+      }
+    </div>
+
+    <div>
+      <label for="lastName">Last Name:</label>
+      <input id="lastName" type="text" formControlName="lastName" />
+      @if(!checkOutForm.get('checkOutData.lastName')?.valid &&
+      checkOutForm.get('checkOutData.lastName')?.touched) {
+      <span class="help-block">last name is required!</span>
+      }
+    </div>
+    <div>
+      <label for="email">Email:</label>
+      <input id="email" type="email" formControlName="email" />
+      @if(!checkOutForm.get('checkOutData.email')?.valid &&
+      checkOutForm.get('checkOutData.email')?.touched) {
+      <span class="help-block">Please enter a valid email!</span>
+      }
+    </div>
+    <div>
+      <label for="creditCard">Credit Card:</label>
+      <input id="creditCard" type="number" formControlName="creditCard" />
+      @if(!checkOutForm.get('checkOutData.creditCard')?.valid &&
+      checkOutForm.get('checkOutData.creditCard')?.touched) {
+      <span class="help-block">please enter a valid credit card!</span>
+      }
+    </div>
   </div>
-  <div>
-    <label for="lastName">Last Name:</label>
-    <input id="lastName" type="text" formControlName="lastName" />
-  </div>
-  <div>
-    <label for="email">Email:</label>
-    <input id="email" type="email" formControlName="email" />
-  </div>
-  <div>
-    <label for="creditCard">Credit Card:</label>
-    <input
-      id="creditCard"
-      type="number"
-      formControlName="creditCard"
-      placeholder="xxxxxxxxxxxxxxxx"
-    />
-  </div>
+
   <button type="submit" [disabled]="!checkOutForm.valid">Submit</button>
   <div *ngIf="purchaseComplete" class="thank-you">
     Thanks for your purchase!
