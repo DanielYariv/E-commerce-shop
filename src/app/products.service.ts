@@ -32,7 +32,7 @@ export class ProductsService {
       Price: 35.99,
       Category: 'Clothing',
       SubCategory: 'Men',
-      ImageURL: 'https://source.unsplash.com/random/300x300?sig=3&kids-pants',
+      ImageURL: 'https://source.unsplash.com/random/300x300?sig=3&mens-jeans',
       stars: 3,
     },
     {
@@ -62,7 +62,7 @@ export class ProductsService {
       Price: 50.99,
       Category: 'Clothing',
       SubCategory: 'Men',
-      ImageURL: 'https://source.unsplash.com/random/300x300?sig=6&mens-pants',
+      ImageURL: 'https://source.unsplash.com/random/300x300?sig=6&mens-jeans',
       stars: 5,
     },
     {
@@ -180,7 +180,7 @@ export class ProductsService {
       Category: 'Clothing',
       SubCategory: 'Women',
       ImageURL:
-        'https://source.unsplash.com/random/300x300?sig=17&womens-pants',
+        'https://source.unsplash.com/random/300x300?sig=17&womens-jeans',
       stars: 4,
     },
     {
@@ -191,7 +191,7 @@ export class ProductsService {
       Category: 'Clothing',
       SubCategory: 'Women',
       ImageURL:
-        'https://source.unsplash.com/random/300x300?sig=18&womens-pants',
+        'https://source.unsplash.com/random/300x300?sig=18&womens-jeans',
       stars: 2,
     },
     {
@@ -284,7 +284,7 @@ export class ProductsService {
       Price: 24.99,
       Category: 'Clothing',
       SubCategory: 'Kids',
-      ImageURL: 'https://source.unsplash.com/random/300x300?sig=27&kids-pants',
+      ImageURL: 'https://source.unsplash.com/random/300x300?sig=27&kids-jeans',
       stars: 3,
     },
     {
@@ -294,7 +294,7 @@ export class ProductsService {
       Price: 21.99,
       Category: 'Clothing',
       SubCategory: 'Kids',
-      ImageURL: 'https://source.unsplash.com/random/300x300?sig=28&kids-pants',
+      ImageURL: 'https://source.unsplash.com/random/300x300?sig=28&kids-jeans',
       stars: 3,
     },
     {
@@ -304,7 +304,7 @@ export class ProductsService {
       Price: 19.99,
       Category: 'Clothing',
       SubCategory: 'Kids',
-      ImageURL: 'https://source.unsplash.com/random/300x300?sig=29&kids-pants',
+      ImageURL: 'https://source.unsplash.com/random/300x300?sig=29&kids-jeans',
       stars: 4,
     },
     {
@@ -314,7 +314,7 @@ export class ProductsService {
       Price: 25.99,
       Category: 'Clothing',
       SubCategory: 'Kids',
-      ImageURL: 'https://source.unsplash.com/random/300x300?sig=30&kids-pants',
+      ImageURL: 'https://source.unsplash.com/random/300x300?sig=30&kids-jeans',
       stars: 5,
     },
 
