@@ -2,6 +2,7 @@ import { Component, Input, OnInit, OnDestroy, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
+
 import { Subscription } from 'rxjs';
 
 import { ButtonModule } from 'primeng/button';
@@ -12,8 +13,6 @@ import { DialogModule } from 'primeng/dialog';
 import { ToastModule } from 'primeng/toast';
 import { MessageService } from 'primeng/api';
 
-import { NgbAlert } from '@ng-bootstrap/ng-bootstrap';
-
 import { ProductsService } from '../services/products.service';
 import { CartService } from '../services/cart.service';
 import { Product } from '../interfaces/product.interface';
@@ -23,7 +22,6 @@ import { Product } from '../interfaces/product.interface';
   imports: [
     CommonModule,
     ButtonModule,
-    NgbAlert,
     DataViewModule,
     RatingModule,
     FormsModule,
@@ -44,8 +42,8 @@ export class ProductsComponent implements OnInit, OnDestroy {
   router = inject(Router);
   messageService = inject(MessageService);
 
-  category?: string;
-  subCategory?: string;
+  category!: string;
+  subCategory!: string;
   filteredProducts!: Product[];
   routeSubscription: Subscription = new Subscription();
 
@@ -55,7 +53,7 @@ export class ProductsComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.routeSubscription = this.activatedRoute.paramMap.subscribe(
       (params) => {
-        if (this.router.url != '/home') {
+        if (this.router.url !== '/home') {
           //if the user choose home, skip the code below because the products need to include only the best sellers products, get it from the  the home component
           this.category = params.get('category')!;
           this.subCategory = params.get('subCategory')!;
@@ -70,7 +68,7 @@ export class ProductsComponent implements OnInit, OnDestroy {
   updateProductList(): void {
     if (this.subCategory) {
       this.products = this.productsService.getByCategoryAndSubCategory(
-        this.category!,
+        this.category,
         this.subCategory
       );
     } else if (this.category) {

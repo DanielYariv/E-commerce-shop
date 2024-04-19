@@ -20,7 +20,7 @@ import { CartService } from '../services/cart.service';
 export class CheckOutComponent implements OnInit {
   cartService = inject(CartService);
   formBuilder = inject(FormBuilder);
-  @Output() formSubmitted = new EventEmitter<boolean>(); //for close the check out dialog in cart
+  @Output() formSubmitted = new EventEmitter<boolean>(); //listen to form submitted - close the check out dialog in cart
 
   checkOutForm!: FormGroup;
   totalAmount = this.cartService.totalPrice; // Accessing the current value of totalPrice

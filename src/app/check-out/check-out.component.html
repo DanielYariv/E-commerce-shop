@@ -37,7 +37,7 @@
   </div>
 
   <button type="submit" [disabled]="!checkOutForm.valid">Submit</button>
-  <div *ngIf="purchaseComplete" class="thank-you">
-    Thanks for your purchase!
-  </div>
+  @if(purchaseComplete){
+  <div class="thank-you">Thanks for your purchase!</div>
+  }
 </form>
