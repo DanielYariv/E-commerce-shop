@@ -32,7 +32,7 @@ export class ProductsService {
       Price: 35.99,
       Category: 'Clothing',
       SubCategory: 'Men',
-      ImageURL: 'https://source.unsplash.com/random/300x300?sig=3&mens-pants',
+      ImageURL: 'https://source.unsplash.com/random/300x300?sig=3&kids-pants',
       stars: 3,
     },
     {
@@ -52,7 +52,7 @@ export class ProductsService {
       Price: 49.99,
       Category: 'Clothing',
       SubCategory: 'Men',
-      ImageURL: 'https://source.unsplash.com/random/300x300?sig=5&mens-pants',
+      ImageURL: 'https://source.unsplash.com/random/300x300?sig=5&mens-jeans',
       stars: 5,
     },
     {
@@ -102,7 +102,7 @@ export class ProductsService {
       Price: 42.99,
       Category: 'Clothing',
       SubCategory: 'Men',
-      ImageURL: 'https://source.unsplash.com/random/300x300?sig=10&mens-shirt',
+      ImageURL: 'https://source.unsplash.com/random/300x300?sig=10&kids-shirt',
       stars: 5,
     },
 
@@ -202,7 +202,7 @@ export class ProductsService {
       Category: 'Clothing',
       SubCategory: 'Women',
       ImageURL:
-        'https://source.unsplash.com/random/300x300?sig=19&womens-pants',
+        'https://source.unsplash.com/random/300x300?sig=19&womens-jeans',
       stars: 3,
     },
     {
@@ -213,7 +213,7 @@ export class ProductsService {
       Category: 'Clothing',
       SubCategory: 'Women',
       ImageURL:
-        'https://source.unsplash.com/random/300x300?sig=20&womens-pants',
+        'https://source.unsplash.com/random/300x300?sig=20&womens-jeans',
       stars: 3,
     },
 
