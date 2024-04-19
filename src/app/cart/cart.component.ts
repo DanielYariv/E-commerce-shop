@@ -1,7 +1,7 @@
 import { Component, inject } from '@angular/core';
 import { CheckOutComponent } from '../check-out/check-out.component';
 import { Product } from '../interfaces/product.interface';
-import { CartService } from './../cart.service';
+import { CartService } from '../services/cart.service';
 import { CommonModule } from '@angular/common';
 import { ButtonModule } from 'primeng/button';
 import { NgbAlert } from '@ng-bootstrap/ng-bootstrap';

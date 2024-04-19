@@ -9,11 +9,13 @@ import { DataViewModule } from 'primeng/dataview';
 import { RatingModule } from 'primeng/rating';
 import { TagModule } from 'primeng/tag';
 import { DialogModule } from 'primeng/dialog';
+import { ToastModule } from 'primeng/toast';
+import { MessageService } from 'primeng/api';
 
 import { NgbAlert } from '@ng-bootstrap/ng-bootstrap';
 
-import { ProductsService } from './../products.service';
-import { CartService } from './../cart.service';
+import { ProductsService } from '../services/products.service';
+import { CartService } from '../services/cart.service';
 import { Product } from '../interfaces/product.interface';
 @Component({
   selector: 'app-products',
@@ -27,9 +29,11 @@ import { Product } from '../interfaces/product.interface';
     FormsModule,
     TagModule,
     DialogModule,
+    ToastModule,
   ],
   templateUrl: './products.component.html',
   styleUrl: './products.component.css',
+  providers: [MessageService],
 })
 export class ProductsComponent implements OnInit, OnDestroy {
   @Input() products: any[] = [];
@@ -38,10 +42,10 @@ export class ProductsComponent implements OnInit, OnDestroy {
   cartService = inject(CartService);
   activatedRoute = inject(ActivatedRoute);
   router = inject(Router);
+  messageService = inject(MessageService);
 
-  // TODO:fix the null option
-  category: string | null = null;
-  subCategory: string | null = null;
+  category?: string;
+  subCategory?: string;
   filteredProducts!: Product[];
   routeSubscription: Subscription = new Subscription();
 
@@ -53,8 +57,8 @@ export class ProductsComponent implements OnInit, OnDestroy {
       (params) => {
         if (this.router.url != '/home') {
           //if the user choose home, skip the code below because the products need to include only the best sellers products, get it from the  the home component
-          this.category = params.get('category');
-          this.subCategory = params.get('subCategory');
+          this.category = params.get('category')!;
+          this.subCategory = params.get('subCategory')!;
           this.updateProductList();
         }
         this.filteredProducts = this.products;
@@ -66,7 +70,7 @@ export class ProductsComponent implements OnInit, OnDestroy {
   updateProductList(): void {
     if (this.subCategory) {
       this.products = this.productsService.getByCategoryAndSubCategory(
-        this.category,
+        this.category!,
         this.subCategory
       );
     } else if (this.category) {
@@ -83,7 +87,7 @@ export class ProductsComponent implements OnInit, OnDestroy {
     );
   }
 
-  //show more details about specific product
+  //when the user click on the product img - show more details about specific product
   showDialog(product: Product) {
     this.selectedProduct = product;
     this.visible = true;
@@ -91,6 +95,11 @@ export class ProductsComponent implements OnInit, OnDestroy {
 
   addProductToCart(product: Product) {
     this.cartService.addProductToCart(product);
+    this.messageService.add({
+      severity: 'success',
+      summary: 'Added to Cart',
+      detail: `${product.Name} has been added to your cart.`,
+    });
   }
 
   ngOnDestroy(): void {

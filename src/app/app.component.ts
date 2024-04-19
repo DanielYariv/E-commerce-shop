@@ -1,8 +1,13 @@
-import { CartService } from './cart.service';
 import { Component, OnInit, effect, inject } from '@angular/core';
 import { RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
+
 import { NgbAlert } from '@ng-bootstrap/ng-bootstrap';
+
 import { MenubarModule } from 'primeng/menubar';
+
+import { MenuItem } from './interfaces/menuItem.interface';
+
+import { CartService } from './services/cart.service';
 
 @Component({
   selector: 'app-root',
@@ -18,7 +23,7 @@ import { MenubarModule } from 'primeng/menubar';
   styleUrl: './app.component.css',
 })
 export class AppComponent implements OnInit {
-  items = [
+  items: MenuItem[] = [
     {
       label: 'Home',
       icon: 'pi pi-home',
@@ -88,7 +93,7 @@ export class AppComponent implements OnInit {
   e = effect(() => {
     const index = this.items.findIndex((item) => item.label === 'Cart');
     if (index !== -1) {
-      const updatedItems: any = [...this.items]; // immutable update -  Angular didn't update the view because it didn't detects the change so i change the reference to the array by spread the old items into a new array and add the new item
+      const updatedItems: MenuItem[] = [...this.items]; // immutable update -  Angular didn't update the view because it didn't detects the change so i change the reference to the array by spread the old items into a new array and add the new item
       updatedItems[index] = {
         ...updatedItems[index],
         badge:
