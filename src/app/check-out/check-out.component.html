@@ -36,7 +36,9 @@
     </div>
   </div>
 
-  <button type="submit" [disabled]="!checkOutForm.valid">Submit</button>
+  <button type="submit" [disabled]="!checkOutForm.valid || purchaseComplete">
+    Submit
+  </button>
   @if(purchaseComplete){
   <div class="thank-you">Thanks for your purchase!</div>
   }

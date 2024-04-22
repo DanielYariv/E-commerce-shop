@@ -4,8 +4,7 @@ import { RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
 import { NgbAlert } from '@ng-bootstrap/ng-bootstrap';
 
 import { MenubarModule } from 'primeng/menubar';
-
-import { MenuItem } from './interfaces/menuItem.interface';
+import { MenuItem } from './interfaces/menu-item.interface';
 
 import { CartService } from './services/cart.service';
 

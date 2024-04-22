@@ -11,21 +11,39 @@ export const routes: Routes = [
     loadComponent: () =>
       import('./home/home.component').then((c) => c.HomeComponent),
   },
+
   {
     path: 'products',
-    loadComponent: () =>
-      import('./products/products.component').then((c) => c.ProductsComponent),
+    children: [
+      {
+        path: '',
+        loadComponent: () =>
+          import('./products/products.component').then(
+            (c) => c.ProductsComponent
+          ),
+      },
+      {
+        path: ':category',
+        children: [
+          {
+            path: '',
+            loadComponent: () =>
+              import('./products/products.component').then(
+                (c) => c.ProductsComponent
+              ),
+          },
+          {
+            path: ':sub-category',
+            loadComponent: () =>
+              import('./products/products.component').then(
+                (c) => c.ProductsComponent
+              ),
+          },
+        ],
+      },
+    ],
   },
-  {
-    path: 'products/:category',
-    loadComponent: () =>
-      import('./products/products.component').then((c) => c.ProductsComponent),
-  },
-  {
-    path: 'products/:category/:subCategory',
-    loadComponent: () =>
-      import('./products/products.component').then((c) => c.ProductsComponent),
-  },
+
   {
     path: 'cart',
     loadComponent: () =>

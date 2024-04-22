@@ -56,7 +56,7 @@ export class ProductsComponent implements OnInit, OnDestroy {
         if (this.router.url !== '/home') {
           //if the user choose home, skip the code below because the products need to include only the best sellers products, get it from the  the home component
           this.category = params.get('category')!;
-          this.subCategory = params.get('subCategory')!;
+          this.subCategory = params.get('sub-category')!;
           this.updateProductList();
         }
         this.filteredProducts = this.products;
@@ -64,16 +64,19 @@ export class ProductsComponent implements OnInit, OnDestroy {
     );
   }
 
-  //render to screen the product list based on the subCategory, if null based on Category, if null show all products
+  //render to screen the product list
   updateProductList(): void {
     if (this.subCategory) {
+      // render based on the subCategory
       this.products = this.productsService.getByCategoryAndSubCategory(
         this.category,
         this.subCategory
       );
     } else if (this.category) {
+      //render based on Category
       this.products = this.productsService.getByCategory(this.category);
     } else {
+      //render all products
       this.products = this.productsService.getProducts();
     }
   }
