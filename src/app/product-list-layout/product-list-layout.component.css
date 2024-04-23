@@ -1,0 +1,13 @@
+.dialog-img{
+    width: 100%;
+    max-height: 300px;
+    object-fit: contain;
+    margin-bottom: 20px;
+
+}
+.list-img{
+    cursor: pointer;
+}
+:host ::ng-deep .p-rating-icon {
+    cursor: default;
+}

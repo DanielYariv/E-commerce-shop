@@ -1,23 +1,16 @@
 import { Component, OnInit, effect, inject } from '@angular/core';
 import { RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
 
-import { NgbAlert } from '@ng-bootstrap/ng-bootstrap';
-
 import { MenubarModule } from 'primeng/menubar';
-import { MenuItem } from './interfaces/menu-item.interface';
+
+import { MenuItem } from './interfaces/menuItem.interface';
 
 import { CartService } from './services/cart.service';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [
-    RouterOutlet,
-    RouterLink,
-    RouterLinkActive,
-    NgbAlert,
-    MenubarModule,
-  ],
+  imports: [RouterOutlet, RouterLink, RouterLinkActive, MenubarModule],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css',
 })
@@ -79,7 +72,6 @@ export class AppComponent implements OnInit {
       icon: 'pi pi-shopping-cart',
       routerLink: '/cart',
       badge: '',
-      styleClass: 'badge-class',
     },
   ];
   cartService = inject(CartService);

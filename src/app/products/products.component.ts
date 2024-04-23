@@ -1,33 +1,26 @@
 import { Component, Input, OnInit, OnDestroy, inject } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 
 import { Subscription } from 'rxjs';
 
-import { ButtonModule } from 'primeng/button';
 import { DataViewModule } from 'primeng/dataview';
-import { RatingModule } from 'primeng/rating';
-import { TagModule } from 'primeng/tag';
-import { DialogModule } from 'primeng/dialog';
 import { ToastModule } from 'primeng/toast';
 import { MessageService } from 'primeng/api';
 
 import { ProductsService } from '../services/products.service';
 import { CartService } from '../services/cart.service';
 import { Product } from '../interfaces/product.interface';
+
+import { ProductListLayoutComponent } from '../product-list-layout/product-list-layout.component';
+import { ProductGridLayoutComponent } from '../product-grid-layout/product-grid-layout.component';
 @Component({
   selector: 'app-products',
   standalone: true,
   imports: [
-    CommonModule,
-    ButtonModule,
     DataViewModule,
-    RatingModule,
-    FormsModule,
-    TagModule,
-    DialogModule,
     ToastModule,
+    ProductListLayoutComponent,
+    ProductGridLayoutComponent,
   ],
   templateUrl: './products.component.html',
   styleUrl: './products.component.css',
@@ -47,9 +40,6 @@ export class ProductsComponent implements OnInit, OnDestroy {
   filteredProducts!: Product[];
   routeSubscription: Subscription = new Subscription();
 
-  selectedProduct!: Product;
-  visible: boolean = false; // for the dialog that give more details about the product
-
   ngOnInit(): void {
     this.routeSubscription = this.activatedRoute.paramMap.subscribe(
       (params) => {
@@ -64,19 +54,19 @@ export class ProductsComponent implements OnInit, OnDestroy {
     );
   }
 
-  //render to screen the product list
+  //update the product list based on the menu item the user choose
   updateProductList(): void {
     if (this.subCategory) {
-      // render based on the subCategory
+      // based on the subCategory
       this.products = this.productsService.getByCategoryAndSubCategory(
         this.category,
         this.subCategory
       );
     } else if (this.category) {
-      //render based on Category
+      // based on Category
       this.products = this.productsService.getByCategory(this.category);
     } else {
-      //render all products
+      // all products
       this.products = this.productsService.getProducts();
     }
   }
@@ -86,12 +76,6 @@ export class ProductsComponent implements OnInit, OnDestroy {
     this.filteredProducts = this.products.filter((product) =>
       product.Name.toLowerCase().includes(query)
     );
-  }
-
-  //when the user click on the product img - show more details about specific product
-  showDialog(product: Product) {
-    this.selectedProduct = product;
-    this.visible = true;
   }
 
   addProductToCart(product: Product) {

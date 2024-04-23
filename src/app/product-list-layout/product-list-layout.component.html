@@ -1,0 +1,80 @@
+<div class="grid grid-nogutter">
+  <div class="col-12" *ngFor="let product of products; let first = first">
+    <div
+      class="flex flex-column xl:flex-row xl:align-items-start p-4 gap-4"
+      [ngClass]="{ 'border-top-1 surface-border': !first }"
+    >
+      <img
+        class="w-9 sm:w-16rem xl:w-10rem shadow-2 block xl:block border-round list-img"
+        [src]="product.ImageURL"
+        [alt]="product.Name"
+        (click)="showDialog(product)"
+      />
+      <div
+        class="flex flex-column sm:flex-row justify-content-between align-items-right xl:align-items-start flex-1 gap-4"
+      >
+        <div
+          class="flex flex-column align-items-center sm:align-items-start gap-3"
+        >
+          <div class="text-2xl font-bold text-900">
+            {{ product.Name }}
+          </div>
+          <p-rating
+            [ngModel]="product.stars"
+            [readonly]="true"
+            [cancel]="false"
+          ></p-rating>
+          <div class="flex align-items-center gap-3">
+            <span class="flex align-items-center gap-2">
+              <i class="pi pi-tag"></i>
+              <span class="font-semibold">{{ product.Category }}</span>
+            </span>
+          </div>
+        </div>
+        <div
+          class="flex sm:flex-column align-items-center sm:align-items-end gap-3 sm:gap-2"
+        >
+          <span class="text-2xl font-semibold">{{ product.Price + "$" }}</span>
+          <button
+            pButton
+            icon="pi pi-shopping-cart"
+            class="md:align-self-end mb-2 p-button-rounded"
+            (click)="addProductToCart(product)"
+          ></button>
+        </div>
+      </div>
+    </div>
+  </div>
+  @if(selectedProduct){
+  <p-dialog
+    [(visible)]="visible"
+    [modal]="true"
+    header="{{ selectedProduct.Name }}"
+    [style]="{ width: '35vw' }"
+    [draggable]="false"
+    [resizable]="true"
+    [dismissableMask]="true"
+  >
+    <h6>{{ selectedProduct.Description }}</h6>
+    <img
+      class="dialog-img"
+      [src]="selectedProduct.ImageURL"
+      alt="Product Image"
+      loading="lazy"
+    />
+    <p-rating
+      [ngModel]="selectedProduct.stars"
+      [readonly]="true"
+      [cancel]="false"
+    ></p-rating>
+
+    <h3>Price: {{ selectedProduct.Price + "$" }}</h3>
+    <button
+      pButton
+      icon="pi pi-shopping-cart"
+      class="p-button-rounded"
+      (click)="addProductToCart(selectedProduct)"
+    ></button>
+  </p-dialog>
+  }
+</div>
