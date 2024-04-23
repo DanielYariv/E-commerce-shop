@@ -34,7 +34,7 @@ import { Product } from '../interfaces/product.interface';
   providers: [MessageService],
 })
 export class ProductsComponent implements OnInit, OnDestroy {
-  @Input() products: any[] = [];
+  @Input() products: Product[] = [];
 
   productsService = inject(ProductsService);
   cartService = inject(CartService);

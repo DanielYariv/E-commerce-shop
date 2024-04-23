@@ -65,20 +65,39 @@
           *ngIf="selectedProduct"
           [(visible)]="visible"
           [modal]="true"
+          header="{{ selectedProduct.Name }}"
           [style]="{ width: '35vw' }"
-          [draggable]="true"
+          [draggable]="false"
           [resizable]="true"
           [dismissableMask]="true"
         >
-          <h2>{{ selectedProduct.Name }}</h2>
-          <p>{{ selectedProduct.Description }}</p>
+          <!-- <h2>{{ selectedProduct.Name }}</h2> -->
+
+          <h6>{{ selectedProduct.Description }}</h6>
           <img
             [src]="selectedProduct.ImageURL"
             alt="Product Image"
             loading="lazy"
-            style="width: 100%; max-height: 300px; object-fit: contain"
+            style="
+              width: 100%;
+              max-height: 300px;
+              object-fit: contain;
+              margin-bottom: 20px;
+            "
           />
-          <h3>Price: {{ selectedProduct.Price | currency }}</h3>
+          <p-rating
+            [ngModel]="selectedProduct.stars"
+            [readonly]="true"
+            [cancel]="false"
+          ></p-rating>
+
+          <h3>Price: {{ selectedProduct.Price + "$" }}</h3>
+          <button
+            pButton
+            icon="pi pi-shopping-cart"
+            class="p-button-rounded"
+            (click)="addProductToCart(selectedProduct)"
+          ></button>
         </p-dialog>
       </div>
     </ng-template>
@@ -130,19 +149,37 @@
           *ngIf="selectedProduct"
           [(visible)]="visible"
           [modal]="true"
+          header="{{ selectedProduct.Name }}"
           [style]="{ width: '35vw' }"
-          [draggable]="true"
+          [draggable]="false"
           [resizable]="true"
           [dismissableMask]="true"
         >
-          <h2>{{ selectedProduct.Name }}</h2>
-          <p>{{ selectedProduct.Description }}</p>
+          <h6>{{ selectedProduct.Description }}</h6>
           <img
             [src]="selectedProduct.ImageURL"
             alt="Product Image"
-            style="width: 100%; max-height: 300px; object-fit: contain"
+            loading="lazy"
+            style="
+              width: 100%;
+              max-height: 300px;
+              object-fit: contain;
+              margin-bottom: 20px;
+            "
           />
-          <h3>Price: {{ selectedProduct.Price | currency }}</h3>
+          <p-rating
+            [ngModel]="selectedProduct.stars"
+            [readonly]="true"
+            [cancel]="false"
+          ></p-rating>
+
+          <h3>Price: {{ selectedProduct.Price + "$" }}</h3>
+          <button
+            pButton
+            icon="pi pi-shopping-cart"
+            class="p-button-rounded"
+            (click)="addProductToCart(selectedProduct)"
+          ></button>
         </p-dialog>
       </div>
     </ng-template>
